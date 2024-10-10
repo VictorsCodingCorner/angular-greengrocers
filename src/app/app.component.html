@@ -1,9 +1,20 @@
 <header id="store">
   <h1>Greengrocers</h1>
-  <!-- your store here -->
+  <ul>
+    <li *ngFor="let item of items">
+      <img [src]="'assets/icons/' + item.id + '-' + item.name.toLowerCase() + '.svg'" alt="{{ item.name }}">
+      {{ item.name }} - {{ item.price | currency }}
+      <button (click)="addToCart(item)">Add to Cart</button>
+    </li>
+  </ul>
 </header>
 <main id="cart">
   <h2>Your Cart</h2>
-  <!-- your cart here -->
-  <!-- your total here -->
+  <ul>
+    <li *ngFor="let item of shoppingCart">
+      <img [src]="'assets/icons/' + formatId(item.id) + '-' + item.name.toLowerCase() + '.svg'" alt="{{ item.name }}">
+      {{ item.name }} - {{ item.price | currency }}
+    </li>
+  </ul>
+  <h3>Total: {{ getTotal() | currency }}</h3>
 </main>
