@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'angular-green-grocers';
   items: Item[] = []
   shoppingCart: Item[] = [];
+  selectedType: String = "";
 
   constructor(private readonly appService: AppService) {}
   ngOnInit(): void {

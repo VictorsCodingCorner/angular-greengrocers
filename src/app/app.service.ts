@@ -22,9 +22,15 @@ export class AppService {
     return this.http.get<Item[]>(this.apiURL)
   }
 
+  getTypedItems(type: string): Observable<Item[]> {
+    const url = `${this.apiURL}?type=${type}`;
+    return this.http.get<Item[]>(url);
+}
+
   addToShoppingCart(item: Item): void {
     this.shoppingCart.push(item);
   }
+
   getShoppingCart(): Item[] {
     return this.shoppingCart;
   }

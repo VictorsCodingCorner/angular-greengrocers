@@ -1,17 +1,24 @@
 <header id="store">
   <h1>Greengrocers</h1>
+  <select [(ngModel)]="selectedType">
+    <option value="">All</option>
+    <option value="fruit">Fruit</option>
+    <option value="vegetable">Vegetable</option>
+  </select>
   <ul>
     <li *ngFor="let item of items">
+
       <img [src]="'./assets/icons/' + item.id + '.svg'" style="width: 50px; height: 50px;">
       {{ item.name }} - {{ item.price | currency }}
       <button (click)="addToCart(item)">Add to Cart</button>
+
     </li>
   </ul>
 </header>
 <main id="cart">
   <h2>Your Cart</h2>
   <ul>
-    <li *ngFor="let item of shoppingCart">
+    <li *ngFor = "let item of shoppingCart">
       <img [src]="'./assets/icons/' + item.id + '.svg'" style="width: 50px; height: 50px;">
       {{ item.name }} - {{ item.price | currency }}
     </li>
