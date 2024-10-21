@@ -11,11 +11,28 @@ export class AppService {
   private apiURL = environment.apiUrl + "groceries"
 
   private itemList: Item[] = [];
+  items: Item[] = [];
   private shoppingCart: Item[] = [];
+  selectedType = '';
 
   constructor(private http: HttpClient) {
     console.log(this.apiURL)
     this.getItems().subscribe(item => this.itemList = item)
+  }
+  loadItems(): void {
+    if (this.selectedType === '') {
+      this.getItems().subscribe((items) => {
+        this.items = items;
+      });
+    } else {
+      this.getTypedItems(this.selectedType).subscribe((items) => {
+        this.items = items;
+      });
+    }
+  }
+
+  onTypeChange(): void {
+    this.loadItems(); 
   }
 
   getItems(): Observable<Item[]> {
@@ -29,6 +46,7 @@ export class AppService {
 
   addToShoppingCart(item: Item): void {
     this.shoppingCart.push(item);
+    console.log(item.type)
   }
 
   getShoppingCart(): Item[] {

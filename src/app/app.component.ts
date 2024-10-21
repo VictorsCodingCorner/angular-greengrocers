@@ -11,11 +11,27 @@ export class AppComponent {
   title = 'angular-green-grocers';
   items: Item[] = []
   shoppingCart: Item[] = [];
-  selectedType: String = "";
+  selectedType: string = "";
 
   constructor(private readonly appService: AppService) {}
   ngOnInit(): void {
     this.appService.getItems().subscribe(items => this.items = items);
+    this.loadItems();
+  }
+  loadItems(): void {
+    if (this.selectedType === '') {
+      this.appService.getItems().subscribe((items) => {
+        this.items = items;
+      });
+    } else {
+      this.appService.getTypedItems(this.selectedType).subscribe((items) => {
+        this.items = items;
+      });
+    }
+  }
+
+  onTypeChange(): void {
+    this.loadItems();
   }
   addToCart(item: Item): void {
     this.appService.addToShoppingCart(item);
